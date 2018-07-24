@@ -23,7 +23,7 @@
 
 测试环境：(目前仅提供了测试环境)
 
-URL: https://open.sanyitest.com/gateway
+URL: https://open.sanyitest.com/openapi
 
 请求内容:
 ```javascript
@@ -42,7 +42,7 @@ URL: https://open.sanyitest.com/gateway
 
 返回值:
 * 当 HTTP Code = 200 时，返回是成功结果，内容就是返回的 Json 结构
-* 当 HTTP Code= 400 时，返回业务领域的失败
+* 当 HTTP Code = 400 时，返回业务领域的失败
 
 400 时的异常信息:
 ```javascript
@@ -53,15 +53,18 @@ URL: https://open.sanyitest.com/gateway
 }
 ```
 
-测试账号:
-* AppID: 507435914698
-* 公钥:
+## 测试账号
+
+AppID: 507435914698
+
+公钥:
 ```
 MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDgIpJjMaj0YbGZLkbagg+qGfY3zuVKjj8muSfC
 L7HugMANtKDj/ziExh8NSroA2bI6i0DR1n6slrio6bBWqnKFDZwjldDobDOrNXWNxbb3cIncDke9
 CPbDdyWqaimchKMitVgVC8DWy38EDE2u5xQfaz8Tcedkllk7UJkWbciHMQIDAQAB
 ```
-* 私钥:
+
+私钥:
 ```
 MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAOAikmMxqPRhsZkuRtqCD6oZ9jfO
 5UqOPya5J8Ivse6AwA20oOP/OITGHw1KugDZsjqLQNHWfqyWuKjpsFaqcoUNnCOV0OhsM6s1dY3F
@@ -75,5 +78,28 @@ l18NVnax4XgF+k/I3jBUQ9ZjeBA/WGxM24OTXmxCEam/m4RLdwN3pga+mVwVCQJBAJyUCghqEGgf
 2am+HDVnYjiY+USJPEoOXQscOFJEd9JR8FwcCkpENXUtLENSQ5I0kRdkKSEgh6p039pdwrrOf00C
 QGVoickJeJzMyJ+QJQyWH/PO0OpP57Ye4TUiloESf+pYSbZAHUgJ7pRFk/++5HkD9oDTGjkUsaK9
 gXCfk2tfIok=
+```
+
+## 测试接口
+
+为了方便验证接口的签名算法，特提供了最简单的测试接口，action = qianhub.test
+
+请求头:
+
+```text
+X-QianHub-App: 507435914698
+X-QianHub-Sign: 1dc43b8c1d86ea048ee63a13becf93986a5464f261fe871f4550cdc68a9bdddbea66e0b17b2b659830762699b73a7bfc676ce288233cc44b99afdb70898d2052d31d604664759cfa9ff25a85d3f35a8cf538cca9d491678c1e94b647efe3a265289224416321d4315a94a8e5b57fe4313336b692d57c19360a7ec1c865e9f808
+```
+
+请求内容(若改动，则签名也要相应变动):
+```javascript
+{"version":"1.0","action":"qianhub.test","body":{"name":"Jack"}}
+```
+
+返回值:
+```javascript
+{
+    "name": "Jack"
+}
 ```
 
