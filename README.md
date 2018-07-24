@@ -23,7 +23,7 @@
 
 测试环境：(目前仅提供了测试环境)
 
-URL: https://open.sanyitest.com/openapi
+URL: https://open.sanyitest.com/gateway
 
 请求内容:
 ```javascript
