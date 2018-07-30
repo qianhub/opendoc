@@ -132,28 +132,50 @@ X-QianHub-Sign: 1dc43b8c1d86ea048ee63a13becf93986a5464f261fe871f4550cdc68a9bdddb
 }
 ```
 
-## 查询账单
+## 查询门店数据
 
-查询门店结账账单数据
+此接口是用于查询门店各种数据，接口的返回值根据请求的不同而不同，需要区别对待。
 
 请求:
 ```javascript
 {
     "version": "1.0",
-    "action": "qianhub.agent.list-bill",
+    "action": "qianhub.agent.query",
     "body": {
       "shop_id": 10, // 门店 ID
+      "boh_type": "cashier.finish" // 查询类型，值会有差别
       "begin": '2018-07-28 12:00:00', // 开始时间
       "end": '2018-07-28 15:00:00' // 截止时间
     }
 }
 ```
 
+此接口返回的是一个 JSON 数组，数组中的对象中除了 "json" 这个字段的内容会根据 boh_type 不同而不同, 其他字段都是固定的。
+```javascript
+[ // 返回的是数组
+  {
+    "shop_10": 10, // 门店的标识, Long
+    "staff_id":1436, // 服务员 ID Long
+    "staff_name": "王店", // 服务员项目 Long
+    "boh_type": "cashier.finish", // 数据类型
+    "json": {} // 数据结构，与 boh_type 有关
+  }
+]
+```
+
+### 查询已结账的账单
+
+boh_type = cashier.finish
+
 返回值:
 ```javascript
-{
-  "bills": [ // 所有堂食账单
-    {
+[
+  {  
+    "shop_10": 10,
+    "staff_id":1436,
+    "staff_name": "王店",
+    "boh_type": "cashier.finish",
+    "json": {
       "brand_id": 1,  // 品牌 ID Long
       "brand_name": "哇哇叫", // 品牌名称 
       "shop_id": 10, // 门店 ID Long 
@@ -315,8 +337,8 @@ X-QianHub-Sign: 1dc43b8c1d86ea048ee63a13becf93986a5464f261fe871f4550cdc68a9bdddb
       "create_on": "2018-07-28 15:29:38", // 创建时间
       "cashier_on": "2018-07-28 15:30:43" // 收银时间
     }
-  ]
-}
+  }
+]
 ```
 
 几点说明:
@@ -339,4 +361,366 @@ X-QianHub-Sign: 1dc43b8c1d86ea048ee63a13becf93986a5464f261fe871f4550cdc68a9bdddb
 * 11 会员特价
 * 24 秒付买单优惠(第三方支付系统的优惠活动)
 * 25 第二份优惠
+
+### 查询交接信息
+
+boh_type = handover.stat
+
+返回值:
+```javascript
+[
+  {
+    "shop_id": 10,
+    "staff_id": 1436,
+    "staff_name": "刘涛",
+    "boh_type": "handover.stat",
+    "json": {
+      "summary": [
+        {
+          "key": "order",
+          "item": "开台数",
+          "value": "3"
+        },
+        {
+          "key": "person",
+          "item": "就餐人数",
+          "value": "14"
+        },
+        {
+          "key": "avgOfPerson",
+          "item": "人均消费",
+          "value": "34.86"
+        },
+        {
+          "key": "avgOfOrder",
+          "item": "桌均消费",
+          "value": "162.67"
+        },
+        {
+          "key": "turnRate",
+          "item": "翻台率",
+          "value": "4.35%"
+        },
+        {
+          "key": "personRate",
+          "item": "上座率",
+          "value": "5.13%"
+        },
+        {
+          "key": "bill",
+          "item": "收银单数",
+          "value": "3"
+        }
+      ],
+      "detail": [
+        {
+          "key": "cash",
+          "item": "现金",
+          "count": 3,
+          "amount": 159,
+          "subdetail": []
+        },
+        {
+          "key": "card",
+          "item": "银行卡",
+          "count": 1,
+          "amount": 59,
+          "subdetail": []
+        },
+        {
+          "key": "tenpay",
+          "item": "微信",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "alipay",
+          "item": "支付宝",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "voucher",
+          "item": "代金券实收",
+          "count": 2,
+          "amount": 200,
+          "subdetail": [
+            {
+              "key": "欢乐海岸75元抵100元代金券",
+              "item": "欢乐海岸75元抵100元代金券",
+              "count": 2,
+              "amount": 200,
+              "subdetail": []
+            }
+          ]
+        },
+        {
+          "key": "debit",
+          "item": "挂单",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "custom",
+          "item": "自定义实收",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "cashierSum",
+          "item": "合计",
+          "count": 6,
+          "amount": 418,
+          "subdetail": []
+        }
+      ],
+      "waive": [
+        {
+          "key": "discount",
+          "item": "折扣",
+          "count": 1,
+          "amount": 69.8,
+          "subdetail": [
+            {
+              "key": "欢乐海岸全单8折",
+              "item": "欢乐海岸全单8折",
+              "count": 1,
+              "amount": 69.8,
+              "subdetail": []
+            }
+          ]
+        },
+        {
+          "key": "promotion",
+          "item": "促销优惠",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "waive",
+          "item": "免单",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "point",
+          "item": "积分抵现",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "free",
+          "item": "赠送",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "change",
+          "item": "改价",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "rounding",
+          "item": "抹零",
+          "count": 1,
+          "amount": 0.2,
+          "subdetail": []
+        },
+        {
+          "key": "unrealVoucher",
+          "item": "代金券虚收",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "unrealCustom",
+          "item": "自定义虚收",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "waiveSum",
+          "item": "合计",
+          "count": 2,
+          "amount": 70,
+          "subdetail": []
+        }
+      ],
+      "sale": [
+        {
+          "key": "goodsSubGroup",
+          "item": "菜品销售",
+          "count": 26,
+          "amount": 488,
+          "subdetail": []
+        },
+        {
+          "key": "surcharge",
+          "item": "服务费",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "mincharge",
+          "item": "低消差",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "tax",
+          "item": "消费税",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "extra",
+          "item": "不找赎",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "saleSum",
+          "item": "合计",
+          "count": 26,
+          "amount": 488,
+          "subdetail": []
+        }
+      ],
+      "member": [
+        {
+          "key": "charge",
+          "item": "充值实收",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "gift",
+          "item": "充值赠送",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "realstorevalue",
+          "item": "抵扣实收",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "giftstorevalue",
+          "item": "抵扣赠送",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        },
+        {
+          "key": "point",
+          "item": "积分抵现",
+          "count": 0,
+          "amount": 0,
+          "subdetail": []
+        }
+      ],
+      "goods": [
+        {
+          "key": "组合锅",
+          "item": "组合锅",
+          "count": 10,
+          "amount": 348,
+          "subdetail": [
+            {
+              "key": "海鲜类",
+              "item": "海鲜类",
+              "count": 3,
+              "amount": 146,
+              "subdetail": []
+            },
+            {
+              "key": "鱼类",
+              "item": "鱼类",
+              "count": 4,
+              "amount": 63,
+              "subdetail": []
+            },
+            {
+              "key": "肉类",
+              "item": "肉类",
+              "count": 3,
+              "amount": 139,
+              "subdetail": []
+            }
+          ]
+        },
+        {
+          "key": "餐具",
+          "item": "餐具",
+          "count": 14,
+          "amount": 140,
+          "subdetail": [
+            {
+              "key": "餐具&茶位",
+              "item": "餐具&茶位",
+              "count": 14,
+              "amount": 140,
+              "subdetail": []
+            }
+          ]
+        },
+        {
+          "key": "做法",
+          "item": "做法",
+          "count": 2,
+          "amount": 0,
+          "subdetail": [
+            {
+              "key": "做法",
+              "item": "做法",
+              "count": 2,
+              "amount": 0,
+              "subdetail": []
+            }
+          ]
+        },
+        {
+          "key": "expectValue",
+          "item": "合计",
+          "count": 26,
+          "amount": 488,
+          "subdetail": []
+        }
+      ],
+      "waimai": [],
+      "waimaiGoods": []
+    },
+    "create_on": "2018-07-29 17:06:02"
+  }
+]
+```
+### 查询日结信息
+
+boh_type = dayend.stat
+
+**日结统计与交接统计的格式一致**
+
+### 外卖账单信息
+
+boh_type = waimai.order
 
