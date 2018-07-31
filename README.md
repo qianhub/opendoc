@@ -183,12 +183,22 @@ boh_type = cashier.finish
       "sn": "201807280001", // 账单编码
       "bill_id": 5539576104912, // 账单标识，全局唯一 Long
       "amount": 109, // 账单金额
+      "real_amount": 109, // 应收金额
+      "goods_amount": 109, // 金额
+      "order_amount": 109, // 订单金额
+      "paid": 109, // 已支付金额
+      "surcharge": 0, // 服务费
+      "mincharge": 0, // 低消差
+      "discount": 0, // (旧)折扣(负数)
+      "promotion": 0, // 促销(负数)
+      "rounding": 0, // 抹零(是一种支付方式, 但要算到应收中，并从支付中去掉)
       "cashier_staff_id": 1436, // 收银员 ID Long
       "cashier_staff_name": "王店", // 收银员名称
       "orders": [ // 账单包含的订单
         {
           "order_id": 5539576103912, // 订单 ID 全局唯一
           "order_name": "A09", // 订单名称，一般为餐桌名字
+          "order_sn": "201807280001", // 订单的 SN
           "person_count": 6, // 就餐人数 Int
           "table_id": 392, // 餐桌 ID Long
           "order_amount": 109, // 订单金额
@@ -209,14 +219,17 @@ boh_type = cashier.finish
                 "product_type_name": "普通", // 菜品类型名称
                 "goods_group_id": 28, // 菜品大类 ID
                 "goods_group_name": "蝴蝶虾", // 大类名称 
+                "goods_group_sn": "181593785323", // 大类的 SN
                 "goods_subgroup_id": 58, // 菜品小类 ID 
                 "goods_subgroup_name": "海鲜类", // 菜品小类名称
+                "goods_subgroup_sn": "196666227206", // 小类的 SN
                 "unit_type_id": 36, // 规格 ID 
                 "unit_type_name": "份" // 规格名称
               },
               "tags": [], // 菜品的标签
               "origin_price": 52, // 原价
               "current_price": 52, // 现价
+              "real_amount": 52, // 实际的总价
               "quantity": 1, // 份数
               "void_quantity": 0, // 退量 
               "weight": 1, // 重量，称重时有值
@@ -234,8 +247,10 @@ boh_type = cashier.finish
                     "product_type_name": "做法",
                     "goods_group_id": 178,
                     "goods_group_name": "鲜咸",
+                    "goods_group_sn": "18159005323", // 大类的 SN
                     "goods_subgroup_id": 307,
                     "goods_subgroup_name": "做法",
+                    "goods_subgroup_sn": "198888", // 小类的 SN
                     "unit_type_id": 36,
                     "unit_type_name": "份"
                   },
@@ -287,8 +302,10 @@ boh_type = cashier.finish
                     "product_type_name": "做法",
                     "goods_group_id": 178,
                     "goods_group_name": "全银",
+                    "goods_group_sn": "18159005323", // 大类的 SN
                     "goods_subgroup_id": 307,
                     "goods_subgroup_name": "做法",
+                    "goods_subgroup_sn": "198888", // 小类的 SN
                     "unit_type_id": 36,
                     "unit_type_name": "份"
                   },
