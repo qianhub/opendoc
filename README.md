@@ -16,9 +16,10 @@
 * 第三方提供一个 RAS 证书的公钥文件给食通宝，私钥文件自行保留，不能外泄。推荐使用 1024 位证书。
 * 在请求的 HTTP Header 中必须包含2个字段:
     - X-QianHub-App  食通宝分配的 AppID
-    - X-QianHub-Sign 对请求内容的签名， 使用私钥对整个 HTTP 的 Body 做签名，并将签名结果转成 Hex 格式，保存到 X-QianHub-Sign 中
+    - X-QianHub-Sign 对请求内容的签名， 使用私钥对整个 HTTP 的请求内容 做签名，并将签名结果转成 Hex 格式，保存到 X-QianHub-Sign 中
 * OpenAPI 接收到请求时，会使用第三方的公钥去校验请求内容是否合法，只有合法后才会继续后续操作。
 
+我们提供了简单测试样例[Java](./TestClient.java)，可供参考
 ## 接口说明
 
 测试环境：(目前仅提供了测试环境)
@@ -162,6 +163,30 @@ X-QianHub-Sign: 1dc43b8c1d86ea048ee63a13becf93986a5464f261fe871f4550cdc68a9bdddb
   }
 ]
 ```
+
+## 批量查询门店数据
+
+此接口是用于批量查询门店数据，接口的返回值根据请求的不同而不同，需要区别对待。
+
+请求:
+```javascript
+{
+    "version": "1.0",
+    "action": "qianhub.agent.batch-query",
+    "body": {
+      "shop_id": 10, // 门店 ID
+      "boh_types": ["cashier.finish", "handover.stat"], // 需要查的数据类型
+      "begin": '2018-07-28 12:00:00', // 开始时间
+      "end": '2018-07-28 15:00:00' // 截止时间
+    }
+}
+```
+
+该接口和查询指定数据类型的请求类似，只是 action 变成了 qianhub.agent.batch-query, 而请求参数中的 boh_types 变成了数组 (注意参数名为 boh_types)
+
+而返回值的结构也是一样的，只是内容中的 boh_type 会根据内容而不同。
+
+返回的结果是按照时间正序排序。
 
 ### 查询已结账的账单
 
