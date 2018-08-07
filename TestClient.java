@@ -26,10 +26,10 @@ public class TestClient {
             "l18NVnax4XgF+k/I3jBUQ9ZjeBA/WGxM24OTXmxCEam/m4RLdwN3pga+mVwVCQJBAJyUCghqEGgf\n" +
             "2am+HDVnYjiY+USJPEoOXQscOFJEd9JR8FwcCkpENXUtLENSQ5I0kRdkKSEgh6p039pdwrrOf00C\n" +
             "QGVoickJeJzMyJ+QJQyWH/PO0OpP57Ye4TUiloESf+pYSbZAHUgJ7pRFk/++5HkD9oDTGjkUsaK9\n" +
-            "gXCfk2tfIok=";
+            "gXCfk2tfIok="; // 仅在测试环境使用
 
-    public final static String AppID = "507435914698";
-    public final static String URL = "https://open.sanyitest.com/gateway";
+    public final static String AppID = "507435914698"; // 仅在测试环境使用
+    public final static String URL = "https://open.sanyitest.com/gateway"; // 仅在测试环境使用
 
     public static PrivateKey loadKey() throws NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] bytes = Base64.decodeBase64(PrivateKeyBase64);
@@ -53,7 +53,7 @@ public class TestClient {
         HttpPost request = new HttpPost(URL);
         request.setHeader("X-QianHub-App", AppID);
         request.setHeader("X-QianHub-Sign", sign);
-        StringEntity s = new StringEntity(body);
+        StringEntity s = new StringEntity(body, "utf-8");
         s.setContentEncoding("UTF-8");
         s.setContentType("application/json");
         request.setEntity(s);
