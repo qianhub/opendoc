@@ -219,6 +219,7 @@ boh_type = cashier.finish
       "rounding": 0, // 抹零(是一种支付方式, 但要算到应收中，并从支付中去掉)
       "cashier_staff_id": 1436, // 收银员 ID Long
       "cashier_staff_name": "王店", // 收银员名称
+      "undo_index": 0, // 反结账序号，如果大于0，说明是反结账后结账的账单
       "orders": [ // 账单包含的订单
         {
           "order_id": 5539576103912, // 订单 ID 全局唯一
@@ -432,6 +433,9 @@ payment\_type\_id 和 payment_type\_sn 说明:
 |14        	| 2400(12数字)| 自定义付款|
 |16        	| 2416    	| 积分抵现 |
 
+说明：
+* 以上是 使用的默认编码，如果用户设置了自己的支付编码，就以用户的为准，没有设置，才会使用默认值。
+ 
 ### 查询交接信息
 
 boh_type = handover.stat
@@ -788,9 +792,23 @@ boh_type = handover.stat
 
 boh_type = dayend.stat
 
-**日结统计与交接统计的格式一致**
+日结统计与交接统计的格式一致, 只有以下少许差别: 
+* 增加了营业日 businessDay
+
+```javascript
+{
+  "json": {
+    "businessDay": '2018-07-29', // 营业日结日
+      "summary": [
+      ]
+    }
+}
+```
 
 ### 外卖账单信息
 
 boh_type = waimai.order
+
+**TODO 补充外卖订单格式**
+
 
