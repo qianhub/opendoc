@@ -869,8 +869,8 @@ boh_type = waimai.order
     "shipFee": 0, // 配送费
     "hasInvoice": false, // 是否开发票
     "partner": "STB", // 合作商名称，STB 是食通宝
-    "partnerMch": "13", // 门店再合作商上的编号
-    "channelMch": "MT-STB-13" // 门店再外卖平台上的饿标识
+    "partnerMch": "13", // 商家在合作商上的编号
+    "channelMch": "MT-STB-13" // 商家在外卖平台上的标识
   },
   "createon": "2018-08-15 16:53:46" // 下单时间
 }
