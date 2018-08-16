@@ -815,7 +815,7 @@ boh_type = waimai.order
     "shop_id": 10,
     "staff_id": 1436,
     "staff_name": "刘涛",
-    "boh_type": "handover.stat",
+    "boh_type": "waimai.order",
     "json": {
       "order": 1565, // 食通宝平台上的订单ID，Long， 全局唯一
       "sn": "1", // 外卖平台上的订单编号，每天会重置
