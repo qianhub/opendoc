@@ -850,6 +850,7 @@ boh_type = waimai.order
           "order": 1565,
           "partnerGoods": "1662",
           "partnerGoodsName": "焖三黄鸡酱汁",
+          "partnerGoodsSN": "901232", // 菜品编码，如果有映射就有值，没有做映射就为 null
           "channelGoods": "520341975",
           "channelGoodsName": "外婆菜肉末",
           "unitName": "例",
@@ -883,6 +884,12 @@ boh_type = waimai.order
   }
 ]
 ```
+
+外卖订单状态的说明：
+
+一般情况下，我们会上报2种状态的外卖订单: Completed 和 Canceled，对应的是订单已完成和订单已取消。但也会上报其他状态的订单，例如 Shipping 等，这种情况下，等同于订单已完成的，因为门店在做日结时，这些订单并未完成，为了不影响门店日结，这些状态订单也会认为是已完成并上报。
+
+所以对第三方而言，Canceled = 订单已取消，其他状态认为是订单已完成。
 
 外卖一些参数说明:
 
