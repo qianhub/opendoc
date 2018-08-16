@@ -809,6 +809,124 @@ boh_type = dayend.stat
 
 boh_type = waimai.order
 
-**TODO 补充外卖订单格式**
+```javascript
+{
+  "order": 1565, // 食通宝平台上的订单ID，Long， 全局唯一
+  "sn": "1", // 外卖平台上的订单编号，每天会重置
+  "channel": "MT", // 渠道，MT/EL对应美团/饿了么
+  "channelOrder": "23983501436153074", // 外卖平台上的订单号
+  "isPrepared": false,  // 是否预订
+  "amount": 3.07,// 金额，单位: 元
+  "guest": {// 顾客信息
+    "name": "lyj(先生)",// 名字
+    "address": "色金拉 (10086号)@#西藏自治区林芝市墨脱县色金拉",// 地址
+    "phone": "13457598760",// 电话
+    "count": -1 // 人数, -1 标识默认人数
+  },
+  "payState": "PayOffline",// 支付状态 PayOffline=货到付款 PayOnline=在线支付
+  "orderState": "OrderAcking",// 订单状态
+  "shipType": "SelfShip",// 配送方式
+  "details": [// 菜品详情
+    {
+      "id": 3072,
+      "order": 1565,// 订单id
+      "channelGoodsName": "茄子恋豆角", // 商品名
+      "unitName": "份",/ /单位
+      "price": 0.01,// 价格
+      "quantity": 1,// 数量
+      "boxPrice": 0,// 包装盒价格
+      "boxQuantity": 1,// 包装盒数量
+      "bagName": "1号口袋",// 包装盒名字
+      "createon": "2018-08-15 16:53:46"// 创建时间
+    },
+    {
+      "id": 3073,
+      "order": 1565,
+      "partnerGoods": "1662",
+      "partnerGoodsName": "焖三黄鸡酱汁",
+      "channelGoods": "520341975",
+      "channelGoodsName": "外婆菜肉末",
+      "unitName": "例",
+      "price": 0.01,
+      "quantity": 1,
+      "boxPrice": 0,
+      "boxQuantity": 1,
+      "bagName": "1号口袋",
+      "createon": "2018-08-15 16:53:46"
+    }
+  ],
+  "promotions": [],// 活动信息
+  "extra": {// 额外信息
+    "goodsAmount": 3.05,// 菜品金额
+    "boxAmount": 0.02,// 打包费
+    "pickType": "Normal",// 取货方式: Normal=配送 TakeSelf=到店自取
+    "channelShare": 0, // 外卖平台的分佣
+    "channelPromotion": 0, // 外卖平台分担的活动费
+    "partnerReceive": 3.07, // 商家实收
+    "partnerPromotion": 0, // 商家分担的活动费
+    "partnerShipFee": 0, // 商家分担的运费
+    "onlinePaid": 3.07, // 顾客在线支付金额
+    "shipFee": 0, // 配送费
+    "hasInvoice": false, // 是否开发票
+    "partner": "STB", // 合作商名称，STB 是食通宝
+    "partnerMch": "13", // 门店再合作商上的编号
+    "channelMch": "MT-STB-13" // 门店再外卖平台上的饿标识
+  },
+  "createon": "2018-08-15 16:53:46" // 下单时间
+}
+```
+
+外卖一些参数说明:
+
+OrderState 订单状态说明:
+* OrderSubmitted 订单已提交
+* OrderAcking 等待商家确认
+* ShipAcking 待配送
+* Shipping 配送中
+* Refunding 退款中
+* Completed 订单完成
+* Canceled 订单取消
+
+PayState 状态:
+* PayOffline 货到付款
+* PayOnline 已在线支付
+
+PickType 取货方式:
+* Normal 默认，一般是骑手配送
+* TakeSelf 到店自取
+
+ShipState 配送状态:
+* Acking 配送单发往配送
+* Acked 配送单已确认
+* InShop 骑手已到店
+* Takeout 骑手已取餐
+* Arrived 骑手已送达
+* Canceled 配送单已取消
+
+RefundState 退款状态:
+* NoRefund 没有退款
+* Apply 顾客发起退款
+* Agree 商家同意退款
+* Reject 商家驳回退款
+* GuestCancel 顾客取消退款申请
+* Complaint 顾客退款申诉
+* CancelComplaint 顾客取消退款申诉
+* Failed 退款失败
+* Unknown 未知状态
+
+ShipType 配送方式:
+* SelfShip  商家自配送
+* MeituanJoin 美团专送-加盟
+* MeituanSelf 美团专送-自建
+* MeituanZB 美团配送-众包
+* MeituanAgent 美团专送-城市代理
+* MeituanMulti 美团专送－混合送
+* Fast 快送
+* AllCity 全城送
+* Unknown 未知
+
+
+
+
 
 
