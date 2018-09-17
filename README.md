@@ -127,7 +127,10 @@ X-QianHub-Sign: 1dc43b8c1d86ea048ee63a13becf93986a5464f261fe871f4550cdc68a9bdddb
           "sn": "20001", // 门店编码
           "shop_name": "【树莓派】哇哇叫欢乐海岸店", // 门店名称
           "shop_address": "深圳市南山区1-12铺", // 地址 可能为 null
-          "shop_contact": "0755-26960000" // 联系方式 可能为 null
+          "shop_contact": "0755-26960000", // 联系方式 可能为 null
+          "business_on": "2018-1-1", // 开始营业的时间, 以第一次日结为准, 可能为 null
+          "latest_business_day": "2018-09-12", // 最近一次日结日, 可能为 null
+          "create_on": "2017-12-21 12:34:33" // 门店创建时间, 可能为 null
         }
     ]
 }
